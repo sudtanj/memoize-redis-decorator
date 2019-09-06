@@ -3,19 +3,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Redis = require("ioredis");
 const uuid = require("uuid");
 class MemoizeRedis {
-    constructor({ argsResolver, ttl, redisOptions }) {
+    constructor({ argsResolver, ttl, redisOptions }, key) {
         this.argsResolver = argsResolver || ((...args) => JSON.stringify(args));
         this.ttl = ttl || 600;
         this.redisOptions = redisOptions || {};
         this.redis = new Redis(this.redisOptions);
         this.hash = uuid.v4();
+        this.key=key;
     }
-    memoize() {
+    memoize(key) {
         const self = this;
+        if(this.key !== undefined){
+            key=this.key;
+        }
         return (klass, methodName, desc) => {
             const origMethod = desc.value;
             desc.value = async function (...args) {
-                const key = 'memoize-redis-decorator:'
+                const key = key
                     + klass.constructor.name + '.'
                     + methodName + '.'
                     + self.argsResolver(...args) + '.'

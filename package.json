@@ -1,18 +1,19 @@
 {
-  "name": "memoize-redis-decorator",
+  "name": "@sudtanj/memoize-redis-decorator",
   "version": "1.0.0",
   "description": "Memoize decorator, backed by Redis",
   "main": "dist/index.ts",
   "scripts": {
     "test": "tsc --noEmit"
   },
+  "private": false,
   "keywords": [
     "memoize",
     "redis",
     "decorator",
     "cache"
   ],
-  "author": "Vladislav Botvin",
+  "author": "Sudono Tanjung",
   "license": "MIT",
   "dependencies": {
     "ioredis": "4.0.0-3",
